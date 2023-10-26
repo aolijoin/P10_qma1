@@ -3,8 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/elementUI.css">
+    <script src="/js/vue.js"></script>
+    <script src="/js/elementUI.js"></script>
+    <script src="/js/echarts.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/axios.js"></script>
 </head>
 <body>
+<div id="login">
+    账户
+    <el-input placeholder="输入用户名" v-model="form.username"></el-input>
+    密码
+    <el-input placeholder="输入密码" type="password" v-model="form.password"></el-input>
+    <el-checkbox-group v-model="jwt">
+        <el-checkbox label="true">记住我</el-checkbox>
+    </el-checkbox-group>
+    <el-button type="primary" @click="login">登录</el-button>
 
+</div>
+<script>
+    new Vue({
+        el: '#login',
+        data: {
+            form: {}
+            , jwt: []
+        },
+        methods: {
+            login() {
+                let token = this.jwt.join('')
+                axios.post(`user/login?token=` + token, this.form).then(res => {
+                    if (res.data.code === 200) {
+                        localStorage.setItem('id', res.data.data.id)
+                        this.$message.success("登陆成功")
+                        if (token !== '') {
+                            localStorage.setItem('jwt', token)
+                        }
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                })
+            },
+            jwtLogin() {
+                let jwts = localStorage.getItem('jwt')
+                this.jwt = [jwts]
+
+                let id = localStorage.getItem('id')
+                if (jwts && id) {
+                    axios.post(`/user/jwtLogin?id=${id}`).then(res => {
+                        if (res.data.code === 200) {
+                            this.$message.success("登陆成功")
+                        } else {
+                            this.$message.info(res.data.msg)
+                        }
+                    })
+                }
+
+            }
+        }, created() {
+            this.jwtLogin()
+        }
+    })
+</script>
 </body>
 </html>
