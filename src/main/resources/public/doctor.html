@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/elementUI.css">
+    <script src="/js/vue.js"></script>
+    <script src="/js/elementUI.js"></script>
+    <script src="/js/echarts.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/axios.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-input v-model="serchMap.dept" placeholder="输入科室"></el-input>
+    <el-input v-model="serchMap.name" placeholder="输入医生"></el-input>
+    <el-button type="primary" @click="getAll">搜索</el-button>
+
+    <el-table :data="tableData">
+        <el-table-column prop="id" label="编号"></el-table-column>
+        <el-table-column prop="dept" label="科室"></el-table-column>
+        <el-table-column prop="name" label="医生"></el-table-column>
+        <el-table-column prop="time" label="时间"></el-table-column>
+        <el-table-column prop="num" label="余号"></el-table-column>
+        <el-table-column>
+            <template label="操作" slot-scope="scope">
+                <el-button type="primary" @click="" :disabled="scope.row.num < 1">立即挂号</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :total="page.total"
+                   :page-size="page.size"
+                   :page-sizes="[3,6,9,12]" layout="total,sizes,prev,pager,next,jumper"
+                   :current-page="page.page"></el-pagination>
+
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            tableData: [],
+            page: {
+                page: 1,
+                size: 3,
+                total: 0
+            },
+            serchMap: {
+                dept: '',
+                name: ''
+            }
+        },
+        methods: {
+            handleSizeChange(val) {
+                this.page.size = val
+                this.getAll()
+            },
+            handleCurrentChange(val) {
+                this.page.page = val
+                this.getAll()
+            },
+            getAll() {
+                axios.post(`doctor/getAll?page=${this.page.page}&size=${this.page.size}`, this.serchMap).then(res => {
+                    this.tableData = res.data.list
+                    this.page.total = res.data.total
+                })
+            }
+
+        }, created() {
+            this.getAll()
+        }
+    })
+</script>
+</body>
+</html>

@@ -37,6 +37,7 @@
                     if (res.data.code === 200) {
                         localStorage.setItem('id', res.data.data.id)
                         this.$message.success("登陆成功")
+                        location.href = 'doctor.html'
                         if (token !== '') {
                             localStorage.setItem('jwt', token)
                         }
@@ -54,6 +55,7 @@
                     axios.post(`/user/jwtLogin?id=${id}`).then(res => {
                         if (res.data.code === 200) {
                             this.$message.success("登陆成功")
+                            location.href = 'doctor.html'
                         } else {
                             this.$message.info(res.data.msg)
                         }
