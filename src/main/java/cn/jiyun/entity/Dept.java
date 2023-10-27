@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 @ToString
-@TableName("tb_name")
+@TableName("tb_dept")
 public class Dept implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
