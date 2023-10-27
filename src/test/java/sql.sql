@@ -27,6 +27,29 @@ create table tb_doctor
     time varchar(50) null,
     did  int         null
 );
+create table tb_order_num
+(
+    id     int auto_increment
+        primary key,
+    dept   varchar(50) null,
+    doctor varchar(50) null,
+    time   date        null,
+    time1  varchar(50) null,
+    money  int         null,
+    user   varchar(50) null
+);
+
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('内科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('内科', '咋回事1', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('内科', '咋回事1', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('内科', '咋回事1', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('内科', '咋回事1', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
+INSERT INTO qma.tb_order_num (dept, doctor, time, time1, money, user) VALUES ('儿科', '咋回事', '2023-10-27', '08：30', 50, '超级管理员');
 
 INSERT INTO qma.tb_doctor (name, time, did) VALUES ('咋回事', '08：30', 1);
 INSERT INTO qma.tb_doctor (name, time, did) VALUES ('咋回事1', '08：30', 2);
